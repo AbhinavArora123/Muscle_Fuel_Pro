@@ -1,0 +1,35 @@
+.fix{
+    margin-top: 20px;
+    border: 1px solid gray;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    /* position: fixed; */
+}
+
+.fixComp{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+    margin: 10px;
+    width: 20%;
+}
+ 
+.fixComp img{
+    width: 20%;
+    height: 50px;
+}
+
+@media screen and (max-width:700px) {
+    .fixComp{
+        /* flex-direction: row; */
+        flex-wrap: nowrap;
+    }
+    .fixComp img{
+        width: 50%;
+    }
+}

@@ -1,0 +1,14 @@
+/* .foot{
+    height: 300px;
+    width: 100%;
+} */
+
+
+.foot{
+    margin-top: 5px;
+    /* position: absolut; */
+}
+ 
+.btn1:hover{
+    background-color: rgb(241, 241, 241);
+}

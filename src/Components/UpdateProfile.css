@@ -1,0 +1,155 @@
+.updateProfileContainer{
+    position:relative;
+    width: 100vw;
+    height:93vh;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* position: fixed; */
+    top: 0%;
+    left: 0;
+}
+
+.updateProfileBox{
+    border: 2px solid rgb(32, 31, 31);
+    width: 25vw;
+    height: 70vh;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* align-items: center; */
+}
+
+.updateProfileForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 2vmax;
+    justify-content:space-around;
+    height: 70%;
+    transition: all 0.5s;
+}
+.updateProfileHeading{
+    text-align: center;
+    color: rgba(0, 0, 0, 0.678);
+    font: 600 1.6vmax "Roboto";
+    padding: 1.3vmax;
+    border-bottom: 1px solid rgba(63, 62, 62, 0.678);
+    width: 70%;
+    margin: auto;
+}
+.updateProfileForm>div{
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.updateProfileForm>div>input{
+    padding: 1vmax 4vmax;
+    padding-right: 1vmax;
+    margin: 0.5vmax;
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.678);
+    border-radius: 4px;
+    font: 300 1.2vmax cursive;
+    outline: none;
+}
+
+
+.updateProfileForm>div>svg{
+    position: absolute;
+    transform: translateX(1vmax);
+    font-size: 1.6vmax;
+    color: rgba(63, 62, 62, 0.678);
+}
+
+
+#updateProfileImage>img{
+    height: 3.4vmax;
+    width: 3.4vmax;
+    border-radius: 100%;
+    margin: 1vmax;
+}
+
+#updateProfileImage>input{
+    display: flex;
+    padding: 0%;
+}
+
+#updateProfileImage>input::file-selector-button{
+    cursor: pointer;
+    width: 100%;
+    padding: 0 1vmax;
+    z-index: 2;
+    height: 5vh;
+    border: none;
+    margin: 0%;
+    font:400 1.1vmax cursive;
+    transition: all 0.5s;
+    padding: 0 1vmax;
+    color: rgba(0, 0, 0, 0.678);
+    background-color: rgb(255, 255, 255);
+}
+
+#updateProfileImage>input::file-selector-button:hover{
+    background-color: rgb(235, 235, 235);
+}
+
+
+.updateProfileBtn{
+    border: none;
+    background-color: rgba(0, 0, 0, 0.678);
+    color: white;
+    font: 400 1.3vmax "Roboto";
+    width: 100%;
+    padding: 0.8vmax;
+    
+    cursor: pointer;
+    transition: all 0.5s;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 2px 5px rgba(90, 89, 89, 0.678);
+}
+
+.updateProfileBtn:hover{
+    background-color: black;
+}
+
+
+@media screen and (max-width:600px) {
+    .updateProfileContainer{
+        background-color: white;
+    }
+    .updateProfileBox{
+        width: 100vw;
+        height: 80vh;
+    }
+    
+
+    .updateProfileForm{
+        padding: 5vmax;
+    }
+
+    .updateProfileForm>div>input{
+        font-size: 2.8vmax;
+    }
+
+    .updateProfileForm>div>svg{
+        font-size: 2.8vmax;
+    }
+
+    #updateProfileImage>img{
+        width: 7vmax;
+        border-radius: 100%;
+    }
+    #updateProfileImage>input::file-selector-button{
+        height: 6vh;
+        font: 400 1.8vmax cursive;
+    } 
+    .updateProfileBtn{
+        font: 300 1.9vmax "Roboto";
+        padding: 1.8vmax;
+    }
+} 

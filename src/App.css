@@ -1,5 +1,11 @@
 .App {
   text-align: center;
+  /* background-color: white; */
+}
+.App {
+  text-align: center;
+  /* background-color: white; */
+  width: 100%;
 }
 
 .App-logo {
@@ -35,4 +41,27 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+input::-webkit-inner-spin-button,
+input::-webkit-outer-spin-button{
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+*{
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+input[type="number"]{
+  -moz-appearance: textfield;
+}
+
+.greenColor{
+  color: green !important;
+}
+
+.redColor{
+  color:red !important;
 }

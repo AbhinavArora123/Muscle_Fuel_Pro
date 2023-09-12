@@ -1,0 +1,204 @@
+import React, { Fragment, useEffect, useRef, useState } from 'react';
+import './Signup.css';
+import Loader from './Loader';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import LockOpenIcon from '@mui/icons-material/LockOpen';
+import { Link, useNavigate } from 'react-router-dom';
+import Person2Icon from '@mui/icons-material/Person2';
+import { useDispatch,useSelector } from 'react-redux';
+import { clearErrors, login, register } from '../actions/userAction';
+
+
+function Signup({location}) {
+    const dispatch=useDispatch();
+
+    const loginTab=useRef(null);
+    const registerTab=useRef(null);
+    const switcherTab=useRef(null);
+    const history=useNavigate();
+    const {error,loading,isAuthenticated} = useSelector(state=>state.user);
+
+    const[loginEmail,setLoginEmail]=useState("");
+    const[loginPassword,setLoginPassword]=useState("");
+    const[user,setUser]=useState({
+        name:"",
+        email:"",
+        password:""
+    })
+
+    const{name,email,password}=user;
+    
+    const[avatar,setAvatar]=useState();
+
+    const [avatarPreview,setAvatarPreview]=useState("/pintola.jpg");
+
+    const loginSubmit=(e)=>{
+        e.preventDefault();
+        dispatch(login(loginEmail,loginPassword));
+    }
+
+    const registerSubmit=(e)=>{
+        e.preventDefault();
+        const myForm=new FormData();
+        myForm.set("name",name);
+        myForm.set("email",email);
+        myForm.set("password",password);
+        myForm.set("avatar",avatar);
+
+        dispatch(register(myForm));
+    }
+
+    // const registerDataChange=(e)=>{
+    //     if(e.target.name==="avatar"){
+    //     const reader=new FileReader();
+    //     reader.onload=()=>{
+    //         if(reader.readyState===2){
+    //             setAvatarPreview(reader.result);
+    //             setAvatar(reader.result);
+    //         }
+    //     };
+    //     reader.readAsDataURL(e.target.files[0]);
+    //     } else{
+    //         setUser({...user,[e.target.name]:e.target.value})
+    //     }
+    // }
+
+    const registerDataChange = (e) => {
+        if (e.target.name === "avatar") {
+          const reader = new FileReader();
+    
+          reader.onload = () => {
+            if (reader.readyState === 2) {
+              setAvatarPreview(reader.result);
+              setAvatar(reader.result);
+            }
+          };
+    
+          reader.readAsDataURL(e.target.files[0]);
+        } else {
+          setUser({ ...user, [e.target.name]: e.target.value });
+        }
+      };
+
+    // const redirect="/account";
+    const redirect=window.location.search? window.location.search.split("=")[1]:"/account";
+
+    useEffect(()=>{
+        if(error){
+            window.alert(error)
+            dispatch(clearErrors());
+        }
+    },[dispatch,error]);
+
+    useEffect(()=>{
+        if(isAuthenticated){
+            history(redirect)
+        }
+    },[history,isAuthenticated,redirect])
+
+    const switchTabs=(e,tab)=>{
+        if(tab==="login"){
+            switcherTab.current.classList.add("shiftToNeutral");
+            switcherTab.current.classList.remove("shiftToNeutral");
+            
+            registerTab.current.classList.remove("shiftToNeutralForm");
+            loginTab.current.classList.remove("shiftToLeft");
+        }
+        if(tab==="register"){
+            switcherTab.current.classList.add("shiftToRight");
+            switcherTab.current.classList.remove("shiftToNeutral");
+            registerTab.current.classList.add("shiftToNeutralForm");
+            loginTab.current.classList.add("shiftToLeft");
+        }
+    }
+    return (
+        <Fragment>
+            {loading?<Loader/>:<Fragment>
+            <div className='LoginSignupContainer'>
+                <div className='LoginSignupBox'>
+                    <div>
+                        <div className='login_signup_toggle'>
+                        <p onClick={(e)=>switchTabs(e,"login")}>LOGIN</p>
+                        <p onClick={(e)=>switchTabs(e,"register")}>REGISTER</p>
+                        </div>
+                    <button ref={switcherTab}></button>
+                    </div>
+                    <form className='loginForm' ref={loginTab} onSubmit={loginSubmit}>
+                    <div className='loginEmail'>
+                    <MailOutlineIcon/>
+                    <input
+                        type='email'
+                        placeholder='Email' required
+                        value={loginEmail}
+                        onChange={(e)=>setLoginEmail(e.target.value)}
+                    />
+                    </div>
+                    <div className='loginPassword'>
+                    <LockOpenIcon/>
+                    <input
+                        type='password'
+                        placeholder='Password' required
+                        value={loginPassword}
+                        onChange={(e)=>setLoginPassword(e.target.value)}
+                    />
+                    </div>
+                    <Link to='/password/forgot'>Forgot Password?</Link>
+                    <input type='submit' value='Login' className='loginBtn'/>
+                    </form>
+
+                    <form className='signupForm'
+                    ref={registerTab}
+                    encType='multipart/form-data'
+                    onSubmit={registerSubmit}>
+                    <div className='signupName'>
+                    <Person2Icon/>
+                    <input
+                        type='text'
+                        placeholder='Name' required
+                        name="name"
+                        value={name}
+                        onChange={registerDataChange}
+                    />
+                    </div>
+                    <div className='signupEmail'>
+                    <MailOutlineIcon/>
+                    <input
+                        type='email'
+                        placeholder='Email' required
+                        name="email"
+                        value={email}
+                        onChange={registerDataChange}
+                    />
+                    </div>
+                    <div className='loginPassword'>
+                    <LockOpenIcon/>
+                    <input
+                        type='password'
+                        placeholder='Password' required
+                        name='password'
+                        value={password}
+                        onChange={registerDataChange}
+                    />
+                    </div>
+                    <div id='registerImage'>
+                        <img src={avatarPreview} alt='avatar' />
+                        <input type='file' 
+                            name='avatar'
+                            accept='image/*'
+                            onChange={registerDataChange}
+                        />
+                    </div>
+                    <input
+                        type='submit'
+                        value='Register'
+                        className='signupBtn'
+                    />
+                    </form>
+                </div>
+            </div>
+        </Fragment>}
+        </Fragment>
+    )
+}
+
+export default Signup
